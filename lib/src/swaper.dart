@@ -1,8 +1,7 @@
-import 'package:easy_packages/src/gallery.dart';
-import 'package:easy_packages/src/utility.dart';
+import 'package:easy_widget/src/gallery.dart';
+import 'package:easy_widget/src/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-
 
 
 class SimpleSwiper extends StatelessWidget {

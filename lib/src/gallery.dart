@@ -1,4 +1,4 @@
-import 'package:easy_packages/src/utility.dart';
+import 'package:easy_widget/src/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';

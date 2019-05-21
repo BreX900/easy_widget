@@ -1,8 +1,8 @@
-name: easy_packages
+name: easy_widget
 description: A new Flutter project.
 version: 0.0.1
-author:
-homepage:
+author: Simone Bressan
+homepage: https://github.com/BreX900/easy_widget
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
