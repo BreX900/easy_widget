@@ -22,25 +22,23 @@ class TestBarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           bottom: DefaultTabBarBuilder(
               builder: (_context, currentIndex, onTapIndex) {
-                return ProgressTapBar(
+                return ProgressTapBar.number(
                   onTap: onTapIndex,
                   currentIndex: currentIndex,
-                  icons: [
-                    Icon(Icons.map), Icon(Icons.add_a_photo), Icon(Icons.check)
-                  ],
+                  length: 5,
                 );
               }
           ),
         ),
         body: TabBarView(
-          children: List.generate(3, (index) {
+          children: List.generate(5, (index) {
             return Container(
-              color: index == 0 ? Colors.yellow : Colors.red,
+              color: index%2 == 0 ? Colors.yellow : Colors.red,
             );
           }),
         ),
@@ -50,6 +48,14 @@ class TestBarScreen extends StatelessWidget {
                 onTap: onTapIndex,
                 currentIndex: currentIndex,
                 items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.access_time),
+                    title: Text("CIAO"),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.access_time),
+                    title: Text("CIAO"),
+                  ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.access_time),
                     title: Text("CIAO"),

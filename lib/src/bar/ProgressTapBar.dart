@@ -29,21 +29,21 @@ class ProgressTapBar extends WidgetTapBar {
   /// The user's tap on the widget
   final ValueChanged<int> onTap;
   /// The list of icons
-  final List<Icon> icons;
+  final List<Widget> icons;
 
   ProgressTapBar({Key key,
     this.currentIndex: 0, @required this.onTap,
     @required this.icons,
     this.line: const BorderSide(width: 3.0, color: Colors.white),
     this.progressColor: const ProgressColor(),
-  }) : assert(onTap != null), assert(icons.length <= 3), super(
+  }) : assert(onTap != null), assert(icons.length >= 2 && icons.length <= 5), super(
     key: key,
     currentIndex: currentIndex,
     onTap: onTap,
     children: _childrenBuilder(icons, currentIndex, line, progressColor),
   );
 
-  static List<Widget> _childrenBuilder(List<Icon> icons, int currentIndex, BorderSide line, ProgressColor pc) {
+  static List<Widget> _childrenBuilder(List<Widget> icons, int currentIndex, BorderSide line, ProgressColor pc) {
     return List.generate(icons.length, (index) {
       final iconTheme = index < currentIndex ? pc.iconCompleted :
         (index == currentIndex ? pc.iconActive : pc.iconIncomplete);

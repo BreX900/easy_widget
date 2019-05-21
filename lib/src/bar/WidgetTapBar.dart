@@ -13,7 +13,7 @@ class WidgetTapBar extends StatelessWidget {
   WidgetTapBar({Key key,
     this.currentIndex: 0, @required this.onTap,
     @required this.children,
-  }) : assert(onTap != null), assert(children.length <= 3), super(key: key);
+  }) : assert(onTap != null), assert(children.length >= 2 && children.length <= 5), super(key: key);
 
   @override
   Widget build(BuildContext context) {
