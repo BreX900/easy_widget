@@ -1,4 +1,4 @@
-library easy_packages;
+library easy_widget;
 
 
 export 'src/bar/DefaultTabBarBuilder.dart';

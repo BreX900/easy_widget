@@ -76,7 +76,7 @@ class ProgressTapBar extends WidgetTapBar {
       return Builder(
         builder: (context) {
           final iconTheme = IconTheme.of(context);
-          return Text('$index', style: TextStyle(fontSize: iconTheme.size, color: iconTheme.color),);
+          return Text('${index+1}', style: TextStyle(fontSize: iconTheme.size, color: iconTheme.color),);
         },
       );
     }).toList();
