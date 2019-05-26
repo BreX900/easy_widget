@@ -7,6 +7,12 @@ export 'src/bar/WidgetTapBar.dart';
 
 export 'src/decorator/ConnectLineTabIndicator.dart';
 
+export 'src/ext/ListViewSeparated.dart';
+export 'src/ext/SliverListSeparatorDelegate.dart';
+
+export 'src/plugin_ext/Rubber.dart';
+
+export 'src/widget/Papyrus.dart';
 
 export 'src/easy_image.dart';
 export 'src/easy_stream_builder.dart';
