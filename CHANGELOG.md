@@ -1,3 +1,7 @@
+## [0.0.1+9] 2019-05-27
+
+ - Fixed ```RubberConcierge```
+ 
 ## [0.0.1+8] 2019-05-27
 
  - Update icon in ```RubberConcierge```

@@ -11,8 +11,7 @@ class RubberConcierge extends StatefulWidget {
     this.controller,
     this.opener: const Icon(EasyIcon.up_open),
     this.closer: const Icon(EasyIcon.down_open),
-  }) : assert(controller != null),
-        assert(opener != null), assert(closer != null), super(key: key);
+  }) : assert(opener != null), assert(closer != null), super(key: key);
 
   @override
   _RubberConciergeState createState() => _RubberConciergeState();
@@ -27,6 +26,7 @@ class _RubberConciergeState extends State<RubberConcierge> {
     super.didChangeDependencies();
     _controller?.removeListener(_listener);
     _controller = widget.controller??PrimaryRubberController.of(context);
+    assert(_controller != null, "RubberAnimationController must not be null");
     _controller.addListener(_listener);
   }
 
