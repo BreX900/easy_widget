@@ -10,7 +10,6 @@ class PapyrusController {
   Widget get currentPage => _children.last;
   int get length => _children.length;
 
-
   PapyrusController();
 
   void addListener(VoidCallback listener) {
@@ -41,7 +40,6 @@ class PapyrusController {
       _listeners.forEach((listener) => listener());
     }
   }
-
 
   void _listener(int page) {
     if (_children.length-1 != page) {
