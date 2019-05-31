@@ -1,6 +1,6 @@
 name: easy_widget
 description: A new Flutter project.
-version: 0.0.1+9
+version: 0.0.1+15
 author: Simone Bressan
 homepage: https://github.com/BreX900/easy_widget
 # flutter packages pub publish
@@ -30,6 +30,13 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
+  uses-material-design: true
+
+  fonts:
+    - family: EasyIcon
+      fonts:
+        - asset: fonts/EasyIcon.ttf
+
   # To add assets to your package, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
@@ -46,10 +53,8 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: EasyIcon
-      fonts:
-        - asset: fonts/EasyIcon.ttf
+
+
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

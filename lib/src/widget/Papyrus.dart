@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-
+/// Deprecated for Navigator Widget
+@deprecated
 class PapyrusController {
   final List<VoidCallback> _listeners = [];
   final List<Widget> _children = [];
@@ -48,7 +49,7 @@ class PapyrusController {
   }
 }
 
-
+@deprecated
 class PapyrusNavigator extends InheritedWidget {
   final PapyrusController controller;
 
@@ -76,7 +77,7 @@ class PapyrusNavigator extends InheritedWidget {
   }
 }
 
-
+@deprecated
 class DefaultPapyrusController extends StatefulWidget {
   final Widget child;
 
@@ -85,7 +86,7 @@ class DefaultPapyrusController extends StatefulWidget {
   @override
   _DefaultPapyrusControllerState createState() => _DefaultPapyrusControllerState();
 }
-
+@deprecated
 class _DefaultPapyrusControllerState extends State<DefaultPapyrusController> {
   PapyrusController _controller;
 
@@ -110,7 +111,7 @@ class _DefaultPapyrusControllerState extends State<DefaultPapyrusController> {
   }
 }
 
-
+@deprecated
 class PapyrusView extends StatefulWidget {
   final PapyrusController controller;
   final Widget child;
@@ -120,7 +121,7 @@ class PapyrusView extends StatefulWidget {
   @override
   _PapyrusViewState createState() => _PapyrusViewState();
 }
-
+@deprecated
 class _PapyrusViewState extends State<PapyrusView> with TickerProviderStateMixin {
   PapyrusController _controller;
 
@@ -151,7 +152,7 @@ class _PapyrusViewState extends State<PapyrusView> with TickerProviderStateMixin
   }
 }
 
-
+@deprecated
 class PapyrusBackIconButton extends StatefulWidget {
   final PapyrusController controller;
   final Widget icon;
@@ -161,7 +162,7 @@ class PapyrusBackIconButton extends StatefulWidget {
   @override
   _PapyrusBackIconButtonState createState() => _PapyrusBackIconButtonState();
 }
-
+@deprecated
 class _PapyrusBackIconButtonState extends State<PapyrusBackIconButton> {
   PapyrusController _controller;
   bool _isEnable;
@@ -201,6 +202,38 @@ class _PapyrusBackIconButtonState extends State<PapyrusBackIconButton> {
         PapyrusNavigator.of(context).pop();
       },
       icon: widget.icon,
+    );
+  }
+}
+
+@deprecated
+class PapyrusBar extends StatelessWidget implements PreferredSizeWidget {
+  final Widget leading, title;
+  final List<Widget> actions;
+  final double titleSpacing;
+
+  const PapyrusBar({Key key,
+    this.leading: const PapyrusBackIconButton(),
+    this.title, this.titleSpacing: NavigationToolbar.kMiddleSpacing,
+    this.actions,
+  }) : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: kToolbarHeight),
+      child: NavigationToolbar(
+        middleSpacing: titleSpacing,
+        leading: leading,
+        middle: title,
+        trailing: actions == null ? null : Row(
+          mainAxisSize: MainAxisSize.min,
+          children: actions,
+        ),
+      ),
     );
   }
 }

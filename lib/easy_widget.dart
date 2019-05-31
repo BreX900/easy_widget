@@ -14,6 +14,7 @@ export 'src/plugin_ext/Rubber.dart';
 
 export 'src/widget/Papyrus.dart';
 
+export 'src/easy_icon_icons.dart';
 export 'src/easy_image.dart';
 export 'src/easy_stream_builder.dart';
 export 'src/FloatingButtonMenu.dart';

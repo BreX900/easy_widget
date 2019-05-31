@@ -1,4 +1,3 @@
-import 'package:easy_widget/src/easy_icon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:rubber/rubber.dart';
 
@@ -9,8 +8,8 @@ class RubberConcierge extends StatefulWidget {
 
   const RubberConcierge({Key key,
     this.controller,
-    this.opener: const Icon(EasyIcon.up_open),
-    this.closer: const Icon(EasyIcon.down_open),
+    this.opener: const Icon(Icons.expand_less),
+    this.closer: const Icon(Icons.expand_more),
   }) : assert(opener != null), assert(closer != null), super(key: key);
 
   @override
@@ -37,7 +36,7 @@ class _RubberConciergeState extends State<RubberConcierge> {
 
   _listener() {
     setState(() {
-      isOpen = _controller.value == 1;
+      isOpen = _controller.value >= _controller.upperBound-0.1;
     });
   }
 
