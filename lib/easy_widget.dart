@@ -10,7 +10,13 @@ export 'src/decorator/ConnectLineTabIndicator.dart';
 export 'src/ext/ListViewSeparated.dart';
 export 'src/ext/SliverListSeparatorDelegate.dart';
 
+export 'src/navigation/DefaultNavigationController.dart';
+export 'src/navigation/NavigationBar.dart';
+export 'src/navigation/NavigationView.dart';
+
 export 'src/plugin_ext/Rubber.dart';
+
+export 'src/sp/Sp.dart';
 
 export 'src/widget/Papyrus.dart';
 

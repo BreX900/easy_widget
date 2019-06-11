@@ -1,3 +1,7 @@
+## [0.0.1+15] 2019-05-27
+
+ - Fixed FlagView
+
 ## [0.0.1+9] 2019-05-27
 
  - Fixed ```RubberConcierge```
