@@ -7,10 +7,6 @@ class NavigationBar extends StatefulWidget {
 
   final List<BottomNavigationBarItem> items;
 
-  final ValueChanged<int> onTap;
-
-  final int currentIndex;
-
   final double elevation;
 
   final BottomNavigationBarType type;
@@ -31,8 +27,6 @@ class NavigationBar extends StatefulWidget {
   const NavigationBar({Key key,
     this.controller,
     @required this.items,
-    @deprecated this.onTap,
-    @deprecated this.currentIndex,
     this.elevation: 8.0,
     this.type,
     this.backgroundColor,
@@ -88,6 +82,7 @@ class _NavigationBarState extends State<NavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       onTap: _onTapListener,

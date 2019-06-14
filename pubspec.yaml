@@ -5,7 +5,7 @@ author: Simone Bressan
 homepage: https://github.com/BreX900/easy_widget
 # flutter packages pub publish
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:

@@ -13,3 +13,24 @@ List<R> mapToList<K, V, R>(Map<K, V> map, ListBuilder<K, V, R> listBuilder) {
   return list;
 }
 
+
+class DateTimeView {
+  static String toDate(DateTime dateTime, {String separator: '-', bool year: true, bool month: true, bool day: true}) {
+    return [
+      if (year) dateTime.year,
+      if (month) dateTime.month,
+      if (day) dateTime.day,
+    ].join(separator);
+  }
+  static String toTime(DateTime dateTime, {bool hour: true, bool minute: true, bool second: true, bool millisecond: false}) {
+    return [
+      if (hour) dateTime.hour,
+      if (minute) dateTime.minute,
+      if (second) dateTime.second,
+    ].join(":")+(millisecond ? dateTime.millisecond : '');
+  }
+  static TimeOfDay toTimeOfDay(DateTime dateTime) {
+    return TimeOfDay.fromDateTime(dateTime);
+  }
+}
+
