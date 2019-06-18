@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class StepperButton extends StatelessWidget {
   /// Current value (default = [0.0])
-  final int value;
+  final Widget child;
   /// The action that must take place when pressing on the various icons
   final VoidCallback onIncrement, onDecrease;
   /// Vertical or horizontal layout (default = [true])
@@ -19,12 +19,12 @@ class StepperButton extends StatelessWidget {
 
   const StepperButton({
     Key key,
-    this.value: 0,
+    this.child: const Text('0'),
     @required this.onIncrement, @required this.onDecrease,
     this.isHorizontal: true,  this.color, this.backgroundColor,
     this.padding: const EdgeInsets.all(8.0),
     this.iconIncrement: const Icon(Icons.add), this.iconDecrease: const Icon(Icons.remove),
-  }) : assert(value != null), assert(isHorizontal != null), assert(padding != null),
+  }) : assert(child != null), assert(isHorizontal != null), assert(padding != null),
         assert(iconDecrease != null && iconIncrement != null), super(key: key);
 
   @override
@@ -66,9 +66,9 @@ class StepperButton extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Text(
-          value.toString(),
+        child: DefaultTextStyle(
           style: theme.textTheme.button.copyWith(color: _color),
+          child: child,
         ),
       ),
       Padding(

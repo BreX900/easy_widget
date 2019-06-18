@@ -5,6 +5,8 @@ export 'src/bar/DefaultTabBarBuilder.dart';
 export 'src/bar/ProgressTapBar.dart';
 export 'src/bar/WidgetTapBar.dart';
 
+export 'src/cart/StepperButton.dart';
+
 export 'src/decorator/ConnectLineTabIndicator.dart';
 
 export 'src/ext/ListViewSeparated.dart';
