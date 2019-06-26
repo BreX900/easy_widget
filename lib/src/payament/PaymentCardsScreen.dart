@@ -53,7 +53,7 @@ class PaymentCardsScreen extends StatelessWidget {
                 return SliverList(
                   delegate: SliverListSeparatorDelegate.childrenBuilder(
                     startWithDivider: true,
-                    separator: const Divider(),
+                    separator: const Divider(height: 24.0,),
                     builder: (_, index) => cards[index],
                     childCount: cards.length,
                   ),

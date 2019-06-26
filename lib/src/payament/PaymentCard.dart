@@ -30,21 +30,26 @@ const STRING_OF_PAYMENT_CARD = <BrandOfPaymentCard, String> {
 
 
 class PaymentCard extends StatelessWidget {
+  final String imgsPath;
   final BrandOfPaymentCard type;
   final String last4;
 
-  const PaymentCard({Key key, @required this.type, @required this.last4,
+  const PaymentCard({Key key,
+    @required this.imgsPath, @required this.type, @required this.last4,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final title = STRING_OF_PAYMENT_CARD[type];
+    final theme = Theme.of(context);
+    final tt = theme.textTheme;
 
+    final title = STRING_OF_PAYMENT_CARD[type];
 
     return Row(
       children: <Widget>[
-        Image.asset('assets/imgs/payment_card/$title.png'),
-        Text(title),
+        Image.asset('$imgsPath$title.png', width: 64,),
+        SizedBox(width: 16.0,),
+        Text(title, style: tt.subtitle,),
         SizedBox(width: 8.0,),
         Text('XXXX XXXX XXXX $last4'),
       ],
