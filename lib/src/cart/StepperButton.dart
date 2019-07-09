@@ -7,7 +7,7 @@ class StepperButton extends StatelessWidget {
   /// The action that must take place when pressing on the various icons
   final VoidCallback onIncrement, onDecrease;
   /// Vertical or horizontal layout (default = [true])
-  final bool isHorizontal;
+  final Axis direction;
   /// [color] The Widget [Color] (default = [ThemeData.buttonColor])
   /// [backgroundColor] The background Widget [Color] (default = [ColorScheme.secondaryVariant])
   final Color color, backgroundColor;
@@ -17,15 +17,27 @@ class StepperButton extends StatelessWidget {
   /// [iconDecrease] The Widget of [onDecrease] (default = [Icons.remove])
   final Widget iconIncrement, iconDecrease;
 
+  final Widget separator;
+
   const StepperButton({
     Key key,
     this.child: const Text('0'),
     @required this.onIncrement, @required this.onDecrease,
-    this.isHorizontal: true,  this.color, this.backgroundColor,
+    this.direction: Axis.horizontal,  this.color, this.backgroundColor,
     this.padding: const EdgeInsets.all(8.0),
     this.iconIncrement: const Icon(Icons.add), this.iconDecrease: const Icon(Icons.remove),
-  }) : assert(child != null), assert(isHorizontal != null), assert(padding != null),
+    this.separator,
+  }) : assert(child != null), assert(padding != null),
         assert(iconDecrease != null && iconIncrement != null), super(key: key);
+
+  Widget separatorBuild() {
+    return Padding(
+      padding: direction == Axis.horizontal ? const EdgeInsets.symmetric(horizontal: 4.0) : const EdgeInsets.symmetric(vertical: 4.0),
+      child: direction == Axis.horizontal ? Divider(height: 0) : VerticalDivider(
+        width: 0.0,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +69,8 @@ class StepperButton extends StatelessWidget {
     );
 
     final children = <Widget>[
-      isHorizontal ? decrease : increment,
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: VerticalDivider(
-          width: 0.0,
-        ),
-      ),
+      direction == Axis.horizontal ? decrease : increment,
+      separatorBuild(),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: DefaultTextStyle(
@@ -71,13 +78,8 @@ class StepperButton extends StatelessWidget {
           child: child,
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: VerticalDivider(
-          width: 0.0,
-        ),
-      ),
-      isHorizontal ? increment : decrease,
+      separatorBuild(),
+      direction == Axis.horizontal ? increment : decrease,
     ];
 
     return Material(
@@ -86,11 +88,9 @@ class StepperButton extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(4.0),
       color: backgroundColor??theme.colorScheme.secondaryVariant,
-      child: isHorizontal ? Row(
+      child: Flex(
         mainAxisSize: MainAxisSize.min,
-        children: children,
-      ) : Column(
-        mainAxisSize: MainAxisSize.min,
+        direction: direction,
         children: children,
       ),
     );

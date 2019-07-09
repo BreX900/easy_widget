@@ -14,25 +14,28 @@ class PickPaymentCardDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: StreamBuilder<List<Widget>>(
-        stream: outCards,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return CircularProgressIndicator();
+      content: AspectRatio(
+        aspectRatio: 1,
+        child: StreamBuilder<List<Widget>>(
+          stream: outCards,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return CircularProgressIndicator();
 
-          final cards = snapshot.data;
-          if (cards.length < 1)
-            return NoPaymentCard();
+            final cards = snapshot.data;
+            if (cards.length < 1)
+              return NoPaymentCard();
 
-          return ListViewSeparated.builder(
-            itemCount: cards.length,
-            separator: const Divider(),
-            itemBuilder: (_, index) {
-              final card = cards[index];
-              return card;
-            },
-          );
-        },
+            return ListViewSeparated.builder(
+              itemCount: cards.length,
+              separator: const Divider(),
+              itemBuilder: (_, index) {
+                final card = cards[index];
+                return card;
+              },
+            );
+          },
+        ),
       ),
       actions: <Widget>[
         FlatButton(
