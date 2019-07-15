@@ -28,7 +28,6 @@ export 'src/payament/NoPaymentCard.dart';
 export 'src/payament/PaymentCard.dart';
 export 'src/payament/PaymentCardsScreen.dart';
 export 'src/payament/PickPaymentCard.dart';
-export 'src/payament/PriceView.dart';
 
 export 'src/plugin_ext/Rubber.dart';
 

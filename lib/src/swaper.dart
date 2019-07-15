@@ -21,14 +21,19 @@ class SimpleSwiper extends StatelessWidget {
         if (index+1 < itemCount)
           precacheImage(imgBuilder(index+1), context);
 
+        final imageProvider = imgBuilder(index);
+
         return InkWell(
           onTap: () => openScreen(context, GalleryScreen(
             itemCount: itemCount,
             imgBuilder: imgBuilder,
-            initialPage: index,)),
+            initialPage: index,),
+          ),
           child: Hero(
-              tag: DEFAULT_HERO_TAG+index.toString(),
-              child: Image(image: imgBuilder(index), fit: BoxFit.cover, )));
+            tag: imageProvider.toString(),
+            child: Image(image: imageProvider, fit: BoxFit.cover, ),
+          ),
+        );
       },
       pagination: SwiperPagination(
         builder: SwiperPagination.fraction,
