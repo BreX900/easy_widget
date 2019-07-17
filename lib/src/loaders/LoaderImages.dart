@@ -41,7 +41,6 @@ class AssetHandler {
         files: (dataPath as List).cast<String>().map((file) => file.replaceAll("%20", " ")).toList(),
       ));
     });
-    folders.forEach(print);
     return folders;
   }
 
