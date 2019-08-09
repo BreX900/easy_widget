@@ -14,7 +14,7 @@ List<R> mapToList<K, V, R>(Map<K, V> map, ListBuilder<K, V, R> listBuilder) {
 }
 
 
-class DateTimeView {
+class DateTimeUtility {
   static String toDate(DateTime dateTime, {String separator: '-', bool year: true, bool month: true, bool day: true}) {
     return [
       if (year) dateTime.year,
@@ -32,5 +32,17 @@ class DateTimeView {
   static TimeOfDay toTimeOfDay(DateTime dateTime) {
     return TimeOfDay.fromDateTime(dateTime);
   }
+  static DateTime byDateAndTime(DateTime date, DateTime time) {
+    return DateTime(date.year, date.month, date.day, time.hour, time.minute, time.second, time.millisecond, time.microsecond);
+  }
 }
 
+
+
+typedef void EventInner(event);
+
+class Event {
+  final String code;
+
+  Event(this.code);
+}

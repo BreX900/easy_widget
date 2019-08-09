@@ -2,8 +2,7 @@ import 'package:flutter/widgets.dart';
 
 class SliverListSeparatorDelegate extends SliverChildBuilderDelegate {
 
-  SliverListSeparatorDelegate.builder({
-    @required IndexedWidgetBuilder builder,
+  SliverListSeparatorDelegate.builder(IndexedWidgetBuilder builder, {
     @required IndexedWidgetBuilder separatorBuilder,
     @required int childCount,
     bool startWithDivider: false,
@@ -13,12 +12,12 @@ class SliverListSeparatorDelegate extends SliverChildBuilderDelegate {
     SemanticIndexCallback semanticIndexCallback,
     int semanticIndexOffset = 0,
   }) : assert(startWithDivider != null), super((context, index) {
-    if ((index+(startWithDivider?1:0))%2 == 0)
+    if (separatorBuilder == null || (index+(startWithDivider?1:0))%2 == 0)
       return builder(context, index);
     else
       return separatorBuilder(context, index);
   },
-    childCount: _childrenCount(childCount+(startWithDivider?1:0)),
+    childCount: separatorBuilder == null ? childCount : _childrenCount(childCount+(startWithDivider?1:0)),
     addAutomaticKeepAlives: addAutomaticKeepAlives,
     addRepaintBoundaries: addRepaintBoundaries,
     addSemanticIndexes: addSemanticIndexes,
@@ -30,8 +29,7 @@ class SliverListSeparatorDelegate extends SliverChildBuilderDelegate {
     return (length > 1 ? length*2-1 : length);
   }
 
-  SliverListSeparatorDelegate.childrenBuilder({
-    @required IndexedWidgetBuilder builder,
+  SliverListSeparatorDelegate.childrenBuilder(IndexedWidgetBuilder builder, {
     @required int childCount,
     @required Widget separator,
     bool startWithDivider: false,
@@ -40,12 +38,11 @@ class SliverListSeparatorDelegate extends SliverChildBuilderDelegate {
     bool addSemanticIndexes = true,
     SemanticIndexCallback semanticIndexCallback,
     int semanticIndexOffset = 0,
-  }) : this.builder(
-    builder: (context, index) {
-      return builder(context, index~/2);
+  }) : this.builder((context, index) {
+      return builder(context, separator == null ? index : index~/2);
     },
     childCount: childCount,
-    separatorBuilder: (_, __) => separator,
+    separatorBuilder: separator == null ? null : (_, __) => separator,
     startWithDivider: startWithDivider,
     addAutomaticKeepAlives: addAutomaticKeepAlives,
     addRepaintBoundaries: addRepaintBoundaries,
@@ -54,8 +51,7 @@ class SliverListSeparatorDelegate extends SliverChildBuilderDelegate {
     semanticIndexOffset: semanticIndexOffset,
   );
 
-  SliverListSeparatorDelegate({
-    @required List<Widget> children,
+  SliverListSeparatorDelegate(List<Widget> children, {
     @required Widget separator,
     bool startWithDivider: false,
     bool addAutomaticKeepAlives = true,
@@ -63,9 +59,8 @@ class SliverListSeparatorDelegate extends SliverChildBuilderDelegate {
     bool addSemanticIndexes = true,
     SemanticIndexCallback semanticIndexCallback,
     int semanticIndexOffset = 0,
-  }) : this.childrenBuilder(
+  }) : this.childrenBuilder((context, index) => children[index],
     childCount: children.length,
-    builder: (context, index) => children[index],
     separator: separator,
     startWithDivider: startWithDivider,
     addAutomaticKeepAlives: addAutomaticKeepAlives,

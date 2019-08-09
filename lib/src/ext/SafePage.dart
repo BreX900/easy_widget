@@ -1,11 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
+@deprecated
 class SafePage extends StatelessWidget {
   final Widget child;
 
-  const SafePage({Key key, @required this.child}) : super(key: key);
+  SafePage({Key key, @required this.child}) : super(key: key);
+
+  SafePage.children({Key key,
+    @required List<Widget> children,
+  }) : this(key: key,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: children,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +35,7 @@ class SafePage extends StatelessWidget {
   }
 }
 
-
+@deprecated
 class EndSafePage extends StatelessWidget {
   final List<Widget> children;
 

@@ -13,7 +13,7 @@ enum PosLine {
 ///
 /// The [TabBar.indicatorSize] property can be used to define the indicator's
 /// bounds in terms of its (centered) widget with [TabIndicatorSize.label],
-/// or the entire tab with [TabIndicatorSize.tab].
+/// or the entire tab with [TabIndicatorSize.indicator].
 class ConnectLineTabIndicator extends Decoration {
   /// Create an underline style selected tab indicator.
   /// The [line] and [insets] arguments must not be null.

@@ -12,7 +12,8 @@ class DefaultTabBarBuilder extends StatefulWidget implements PreferredSizeWidget
   final TabBarBuilder builder;
 
   const DefaultTabBarBuilder({Key key,
-    this.controller, @required this.builder
+    this.controller,
+    @required this.builder,
   }) : assert(builder != null), super(key: key);
   @override
   _DefaultTabBarBuilderState createState() => _DefaultTabBarBuilderState();
@@ -39,23 +40,19 @@ class _DefaultTabBarBuilderState extends State<DefaultTabBarBuilder> {
 
   void _updateController() {
     final newController = widget.controller??DefaultTabController.of(context);
+    assert(newController != null);
     if (_controller == newController) {
       return;
     }
-    if (_controller != null) {
-      _controller.removeListener(_positionListener);
-    }
+    
+    _controller?.removeListener(_positionListener);
     _controller = newController;
-    if (_controller != null) {
-      _controller.addListener(_positionListener);
-      position = _controller.index;
-    }
+    _controller.addListener(_positionListener);
+    position = _controller.index;
   }
 
   void _positionListener() {
-    setState(() {
-      position = _controller.index;
-    });
+    setState(() => position = _controller.index);
   }
 
   void _onTapListener(int index) {

@@ -11,11 +11,15 @@ export 'src/cart/StepperButton.dart';
 
 export 'src/decorator/ConnectLineTabIndicator.dart';
 
+export 'src/ext/Button.dart';
 export 'src/ext/DropDownField.dart';
 export 'src/ext/LinearLayout.dart';
 export 'src/ext/ListViewSeparated.dart';
 export 'src/ext/SafePage.dart';
 export 'src/ext/SliverListSeparatorDelegate.dart';
+export 'src/ext/Slivers.dart';
+export 'src/ext/Tab.dart';
+export 'src/ext/Text.dart';
 
 export 'src/loaders/LoaderImages.dart';
 
