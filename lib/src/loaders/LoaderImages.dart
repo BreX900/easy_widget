@@ -91,15 +91,16 @@ class AssetFolder extends ListBase<AssetFile> {
   }) : assert(path != null), assert(files != null),
   this._files = files;
 
-  AssetFile getFileByTitle(String titleFile) {
-    return _files.firstWhere((file) => file.title == titleFile, orElse: () => null);
+  AssetFile getFileByTitle(String titleFile, {VoidCallback orElse}) {
+    return _files.firstWhere((file) => file.title == titleFile, orElse: orElse??() => null);
   }
   AssetFile getFileByEnum(Object enumObject) {
     assert(enumObject != null);
     return getFileByTitle(enumObject.toString().split(".").last);
   }
-  AssetFile getFileByLocale(Locale locale) {
-    return getFileByTitle(locale.languageCode)??getFileByTitle('en');
+  AssetFile getFileByLocale(Locale locale, {VoidCallback orElse}) {
+    return getFileByTitle(locale.languageCode,
+        orElse: orElse??() => getFileByTitle('en', orElse: () => _files.first));
   }
 
   Future<void> cacheImages() async {
