@@ -1,10 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-
-typedef Widget _FutureButtonBuilder(BuildContext context, onPressed);
-
-
+typedef Widget _FutureButtonBuilder(BuildContext context, VoidCallback onPressed);
 
 class FutureCallBack extends StatefulWidget {
   final AsyncCallback onPressed;
@@ -17,23 +14,23 @@ class FutureCallBack extends StatefulWidget {
     this.onPressed,
     Widget child,
   }) : this.builder = ((_, onPressed) {
-    return RaisedButton(
-      onPressed: onPressed,
-      color: color,
-      child: child,
-    );
-  });
+          return RaisedButton(
+            onPressed: onPressed,
+            color: color,
+            child: child,
+          );
+        });
 
   FutureCallBack.inkWell({
     Color color,
     this.onPressed,
     Widget child,
   }) : this.builder = ((_, onPressed) {
-    return InkWell(
-      onTap: onPressed,
-      child: child,
-    );
-  });
+          return InkWell(
+            onTap: onPressed,
+            child: child,
+          );
+        });
 
   @override
   _FutureCallBackState createState() => _FutureCallBackState();
@@ -42,16 +39,23 @@ class FutureCallBack extends StatefulWidget {
 class _FutureCallBackState extends State<FutureCallBack> {
   bool _isInProgress = false;
 
+  void _onTap() {
+    setState(() => _isInProgress = true);
+    widget.onPressed().whenComplete(_onTapComplete);
+  }
+
+  void _onTapComplete() {
+    if (_isInProgress != null) setState(() => _isInProgress = false);
+  }
+
+  @override
+  void dispose() {
+    _isInProgress = null;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context, _isInProgress ? null : () async {
-      setState(() {
-        _isInProgress = true;
-      });
-      await widget.onPressed();
-      setState(() {
-        _isInProgress = false;
-      });
-    });
+    return widget.builder(context, _isInProgress ? null : _onTap);
   }
 }

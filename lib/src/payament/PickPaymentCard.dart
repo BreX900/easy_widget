@@ -1,47 +1,30 @@
 import 'package:easy_widget/easy_widget.dart';
 import 'package:flutter/material.dart';
 
-
 class PickPaymentCardDialog extends StatelessWidget {
   final VoidCallback onAddPaymentCard;
-  final Stream<List<Widget>> outCards;
+  final Widget listPaymentCards;
 
-  const PickPaymentCardDialog({Key key,
+  const PickPaymentCardDialog({
+    Key key,
     @required this.onAddPaymentCard,
-    @required this.outCards,
+    @required this.listPaymentCards,
   }) : super(key: key);
+
+  void _onCancelButton(BuildContext context) {
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: AspectRatio(
         aspectRatio: 1,
-        child: StreamBuilder<List<Widget>>(
-          stream: outCards,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData)
-              return CircularProgressIndicator();
-
-            final cards = snapshot.data;
-            if (cards.length < 1)
-              return NoPaymentCard();
-
-            return ListViewSeparated.builder(
-              itemCount: cards.length,
-              separator: const Divider(),
-              itemBuilder: (_, index) {
-                final card = cards[index];
-                return card;
-              },
-            );
-          },
-        ),
+        child: listPaymentCards,
       ),
       actions: <Widget>[
         FlatButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => _onCancelButton(context),
           child: Text("Anulla"),
         ),
         FlatButton(

@@ -1,73 +1,105 @@
+import 'package:easy_widget/src/ext/ListUtility.dart';
 import 'package:flutter/widgets.dart';
 
-class SliverListSeparatorDelegate extends SliverChildBuilderDelegate {
+class SliverLayoutDelegate extends SliverChildBuilderDelegate {
+//  SliverLayoutDelegate({
+//    bool addAutomaticKeepAlives = true,
+//    bool addRepaintBoundaries = true,
+//    bool addSemanticIndexes = true,
+//    SemanticIndexCallback semanticIndexCallback,
+//    int semanticIndexOffset = 0,
+//    @required int childCount,
+//    @required IndexedWidgetBuilder builder,
+//  })  : assert(builder != null),
+//        assert(childCount != null),
+//        super(
+//          builder,
+//          childCount: childCount,
+//          addAutomaticKeepAlives: addAutomaticKeepAlives,
+//          addRepaintBoundaries: addRepaintBoundaries,
+//          addSemanticIndexes: addSemanticIndexes,
+//          semanticIndexCallback: (Widget _, int localIndex) => localIndex,
+//          semanticIndexOffset: semanticIndexOffset,
+//        );
 
-  SliverListSeparatorDelegate.builder(IndexedWidgetBuilder builder, {
-    @required IndexedWidgetBuilder separatorBuilder,
-    @required int childCount,
-    bool startWithDivider: false,
+  SliverLayoutDelegate({
     bool addAutomaticKeepAlives = true,
     bool addRepaintBoundaries = true,
     bool addSemanticIndexes = true,
     SemanticIndexCallback semanticIndexCallback,
     int semanticIndexOffset = 0,
-  }) : assert(startWithDivider != null), super((context, index) {
-    if (separatorBuilder == null || (index+(startWithDivider?1:0))%2 == 0)
-      return builder(context, index);
-    else
-      return separatorBuilder(context, index);
-  },
-    childCount: separatorBuilder == null ? childCount : _childrenCount(childCount+(startWithDivider?1:0)),
-    addAutomaticKeepAlives: addAutomaticKeepAlives,
-    addRepaintBoundaries: addRepaintBoundaries,
-    addSemanticIndexes: addSemanticIndexes,
-    semanticIndexCallback: (Widget _, int localIndex) => localIndex,
-    semanticIndexOffset: semanticIndexOffset,
-  );
+    @required int childCount,
+    bool surround: false,
+    IndexedWidgetBuilder separatorBuilder,
+    @required IndexedWidgetBuilder builder,
+  })  : assert(surround != null),
+        assert(builder != null),
+        assert(childCount != null),
+        super(
+          (separatorBuilder == null
+              ? builder
+              : WidgetBuilderUtility.builderWithSeparator(
+                  builder,
+                  separatorBuilder,
+                  surround: surround,
+                )),
+          childCount: WidgetBuilderUtility.childCount(
+            childCount,
+            separatorBuilder != null,
+            surround: surround,
+          ),
+          addAutomaticKeepAlives: addAutomaticKeepAlives,
+          addRepaintBoundaries: addRepaintBoundaries,
+          addSemanticIndexes: addSemanticIndexes,
+          semanticIndexCallback: (Widget _, int localIndex) => localIndex,
+          semanticIndexOffset: semanticIndexOffset,
+        );
 
-  static int _childrenCount(int length) {
-    return (length > 1 ? length*2-1 : length);
+  factory SliverLayoutDelegate.childrenBuilder({
+    bool addAutomaticKeepAlives = true,
+    bool addRepaintBoundaries = true,
+    bool addSemanticIndexes = true,
+    SemanticIndexCallback semanticIndexCallback,
+    int semanticIndexOffset = 0,
+    bool surround: false,
+    @required int childCount,
+    @required Widget separator,
+    @required IndexedWidgetBuilder builder,
+  }) {
+    assert(separator != null);
+    return SliverLayoutDelegate(
+      surround: surround,
+      childCount: childCount,
+      separatorBuilder: (_, __) => separator,
+      builder: builder,
+      addAutomaticKeepAlives: addAutomaticKeepAlives,
+      addRepaintBoundaries: addRepaintBoundaries,
+      addSemanticIndexes: addSemanticIndexes,
+      semanticIndexCallback: (Widget _, int localIndex) => localIndex,
+      semanticIndexOffset: semanticIndexOffset,
+    );
   }
 
-  SliverListSeparatorDelegate.childrenBuilder(IndexedWidgetBuilder builder, {
-    @required int childCount,
-    @required Widget separator,
-    bool startWithDivider: false,
+  factory SliverLayoutDelegate.children({
+    bool surround: false,
     bool addAutomaticKeepAlives = true,
     bool addRepaintBoundaries = true,
     bool addSemanticIndexes = true,
     SemanticIndexCallback semanticIndexCallback,
     int semanticIndexOffset = 0,
-  }) : this.builder((context, index) {
-      return builder(context, separator == null ? index : index~/2);
-    },
-    childCount: childCount,
-    separatorBuilder: separator == null ? null : (_, __) => separator,
-    startWithDivider: startWithDivider,
-    addAutomaticKeepAlives: addAutomaticKeepAlives,
-    addRepaintBoundaries: addRepaintBoundaries,
-    addSemanticIndexes: addSemanticIndexes,
-    semanticIndexCallback: (Widget _, int localIndex) => localIndex,
-    semanticIndexOffset: semanticIndexOffset,
-  );
-
-  SliverListSeparatorDelegate(List<Widget> children, {
-    @required Widget separator,
-    bool startWithDivider: false,
-    bool addAutomaticKeepAlives = true,
-    bool addRepaintBoundaries = true,
-    bool addSemanticIndexes = true,
-    SemanticIndexCallback semanticIndexCallback,
-    int semanticIndexOffset = 0,
-  }) : this.childrenBuilder((context, index) => children[index],
-    childCount: children.length,
-    separator: separator,
-    startWithDivider: startWithDivider,
-    addAutomaticKeepAlives: addAutomaticKeepAlives,
-    addRepaintBoundaries: addRepaintBoundaries,
-    addSemanticIndexes: addSemanticIndexes,
-    semanticIndexCallback: (Widget _, int localIndex) => localIndex,
-    semanticIndexOffset: semanticIndexOffset,
-  );
-
+    Widget separator,
+    @required List<Widget> children,
+  }) {
+    return SliverLayoutDelegate(
+      surround: surround,
+      builder: (context, index) => children[index],
+      childCount: children.length,
+      separatorBuilder: separator == null ? null : (_, __) => separator,
+      addAutomaticKeepAlives: addAutomaticKeepAlives,
+      addRepaintBoundaries: addRepaintBoundaries,
+      addSemanticIndexes: addSemanticIndexes,
+      semanticIndexCallback: (Widget _, int localIndex) => localIndex,
+      semanticIndexOffset: semanticIndexOffset,
+    );
+  }
 }

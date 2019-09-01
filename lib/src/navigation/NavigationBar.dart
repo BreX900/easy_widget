@@ -1,10 +1,8 @@
 import 'package:easy_widget/src/navigation/DefaultNavigationController.dart';
+import 'package:easy_widget/src/navigation/NavigationView.dart';
 import 'package:flutter/material.dart';
 
-
 class NavigationBar extends StatefulWidget {
-  final TabController controller;
-
   final List<BottomNavigationBarItem> items;
 
   final double elevation;
@@ -24,16 +22,19 @@ class NavigationBar extends StatefulWidget {
   final bool showUnselectedLabels;
   final bool showSelectedLabels;
 
-  const NavigationBar({Key key,
-    this.controller,
+  const NavigationBar({
+    Key key,
     @required this.items,
     this.elevation: 8.0,
     this.type,
     this.backgroundColor,
     this.iconSize: 24.0,
-    this.selectedItemColor, this.unselectedItemColor,
-    this.selectedFontSize: 14.0, this.unselectedFontSize: 12.0, // TODO: Add Sp Transformer
-    this.showUnselectedLabels, this.showSelectedLabels: true,
+    this.selectedItemColor,
+    this.unselectedItemColor,
+    this.selectedFontSize: 14.0,
+    this.unselectedFontSize: 12.0, // TODO: Add Sp Transformer
+    this.showUnselectedLabels,
+    this.showSelectedLabels: true,
   }) : super(key: key);
 
   @override
@@ -41,7 +42,7 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar> {
-  TabController _controller;
+  NavigationController _controller;
   int _currentIndex = 0;
 
   @override
@@ -57,23 +58,19 @@ class _NavigationBarState extends State<NavigationBar> {
   }
 
   void _updateController() {
-    final newController = widget.controller??DefaultNavigationController.of(context);
-    assert(newController != null, "Pass a [TabController] or use [DefaultNavigationController]");
-    if (_controller == newController) {
-      return;
-    }
+    final newController = DefaultNavigationController.of(context);
+    assert(newController != null, "Use [DefaultNavigationController]");
+
+    if (_controller == newController) return;
+
     _controller?.removeListener(_positionListener);
     _controller = newController;
-    if (_controller != null) {
-      _controller.addListener(_positionListener);
-      _currentIndex = _controller.index;
-    }
+    _controller.addListener(_positionListener);
+    _currentIndex = _controller.index;
   }
 
   void _positionListener() {
-    setState(() {
-      _currentIndex = _controller.index;
-    });
+    setState(() => _currentIndex = _controller.index);
   }
 
   void _onTapListener(int index) {
@@ -82,7 +79,6 @@ class _NavigationBarState extends State<NavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       onTap: _onTapListener,
