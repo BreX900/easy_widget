@@ -1,5 +1,5 @@
 import 'package:easy_widget/easy_widget.dart';
-import 'package:easy_widget/src/ext/ListUtility.dart';
+import 'package:easy_widget/src/utility/ListUtility.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,17 +11,15 @@ class Layout extends StatelessWidget {
   final TextDirection textDirection;
   final VerticalDirection verticalDirection;
   final TextBaseline textBaseline;
-  final List<Widget> children;
-
-  final Widget separator;
-
-  final EdgeInsets padding;
-
-  final ScrollPocket scrollPocket;
 
   final bool expanded;
+  final EdgeInsets padding;
+  final ScrollPocket scrollPocket;
 
-  Layout({
+  final Widget separator;
+  final List<Widget> children;
+
+  Layout._({
     Key key,
     this.direction: Axis.vertical,
     this.mainAxisAlignment: MainAxisAlignment.start,
@@ -38,13 +36,67 @@ class Layout extends StatelessWidget {
   })  : assert(children != null),
         super(key: key);
 
+  Layout.vertical({
+    MainAxisAlignment mainAxisAlignment: MainAxisAlignment.start,
+    MainAxisSize mainAxisSize: MainAxisSize.max,
+    CrossAxisAlignment crossAxisAlignment: CrossAxisAlignment.center,
+    TextDirection textDirection,
+    VerticalDirection verticalDirection: VerticalDirection.down,
+    TextBaseline textBaseline,
+    bool expanded: false,
+    EdgeInsets padding,
+    ScrollPocket scrollPocket,
+    Widget separator,
+    @required List<Widget> children,
+  }) : this._(
+          direction: Axis.vertical,
+          mainAxisAlignment: mainAxisAlignment,
+          mainAxisSize: mainAxisSize,
+          crossAxisAlignment: crossAxisAlignment,
+          textDirection: textDirection,
+          verticalDirection: verticalDirection,
+          textBaseline: textBaseline,
+          expanded: expanded,
+          padding: padding,
+          scrollPocket: scrollPocket,
+          separator: separator,
+          children: children,
+        );
+
+  Layout.horizontal({
+    MainAxisAlignment mainAxisAlignment: MainAxisAlignment.start,
+    MainAxisSize mainAxisSize: MainAxisSize.max,
+    CrossAxisAlignment crossAxisAlignment: CrossAxisAlignment.center,
+    TextDirection textDirection,
+    VerticalDirection verticalDirection: VerticalDirection.down,
+    TextBaseline textBaseline,
+    bool expanded: false,
+    EdgeInsets padding,
+    ScrollPocket scrollPocket,
+    Widget separator,
+    @required List<Widget> children,
+  }) : this._(
+          direction: Axis.horizontal,
+          mainAxisAlignment: mainAxisAlignment,
+          mainAxisSize: mainAxisSize,
+          crossAxisAlignment: crossAxisAlignment,
+          textDirection: textDirection,
+          verticalDirection: verticalDirection,
+          textBaseline: textBaseline,
+          expanded: expanded,
+          padding: padding,
+          scrollPocket: scrollPocket,
+          separator: separator,
+          children: children,
+        );
+
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = expanded
+    List<Widget> children = this.children;/*expanded
         ? this.children.map((child) {
             return Expanded(child: child);
-          })
-        : this.children;
+          }).toList()
+        : this.children;*/
     if (separator != null) children = ListUtility.joiner(this.children, (_) => separator);
 
     Widget child = Flex(
@@ -71,8 +123,13 @@ class Layout extends StatelessWidget {
     else if (padding != null)
       child = Padding(
         padding: padding,
-        child: child,
+        child: child
       );
+    if (expanded) {
+      child = Expanded(
+        child: child
+      );
+    }
 
     return child;
   }

@@ -1,25 +1,56 @@
 import 'package:easy_widget/src/ext/Button.dart';
 import 'package:flutter/material.dart';
 
-
 class TabButton extends StatelessWidget {
-  final ButtonShield shield;
-
   final TabController tabController;
-
   final int value;
 
-  const TabButton({Key key,
-    this.shield: const ButtonShield.empty(), this.tabController, this.value: 1,
-  }) : assert(shield != null), assert(value != null && value != 0), super(key: key);
+  final ButtonDesign buttonDesign;
+  final ButtonTextTheme textTheme;
+  final Color textColor;
+  final Color disabledTextColor;
+  final Color color;
+  final Color disabledColor;
+  final Color focusColor;
+  final Color hoverColor;
+  final Color highlightColor;
+  final Color splashColor;
+  final EdgeInsetsGeometry padding;
+  final ShapeBorder shape;
+  final Clip clipBehavior;
+  final FocusNode focusNode;
+
+  const TabButton({
+    Key key,
+    this.tabController,
+    this.value: 1,
+
+    /// Button
+    this.buttonDesign: ButtonDesign.raised,
+    this.textTheme,
+    this.textColor,
+    this.disabledTextColor,
+    this.color,
+    this.disabledColor,
+    this.focusColor,
+    this.hoverColor,
+    this.highlightColor,
+    this.splashColor,
+    this.padding,
+    this.shape,
+    this.clipBehavior,
+    this.focusNode,
+  })  : assert(buttonDesign != null),
+        assert(value != null && value != 0),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    return Button(
-      shield: shield,
+    return Button.basic(
+      buttonDesign: buttonDesign,
+      color: color,
       onPressed: () {
-        final tabController = this.tabController??DefaultTabController.of(context);
+        final tabController = this.tabController ?? DefaultTabController.of(context);
         assert(tabController != null);
         tabController.index += value;
       },
@@ -33,8 +64,11 @@ class _PrimaryScrollController extends StatefulWidget {
   final ValueChanged<double> scrollListener;
   final Widget child;
 
-  const _PrimaryScrollController({Key key,
-    @required this.scrollOffset, @required this.scrollListener, @required this.child,
+  const _PrimaryScrollController({
+    Key key,
+    @required this.scrollOffset,
+    @required this.scrollListener,
+    @required this.child,
   }) : super(key: key);
   @override
   __PrimaryScrollControllerState createState() => __PrimaryScrollControllerState();
@@ -65,7 +99,8 @@ class __PrimaryScrollControllerState extends State<_PrimaryScrollController> {
   }
 
   void _initController() {
-    _controller = ScrollController(initialScrollOffset: widget.scrollOffset)..addListener(_listener);
+    _controller = ScrollController(initialScrollOffset: widget.scrollOffset)
+      ..addListener(_listener);
   }
 
   void _listener() {
@@ -81,8 +116,6 @@ class __PrimaryScrollControllerState extends State<_PrimaryScrollController> {
   }
 }
 
-
-
 class ScrollItem<IndicatorType> {
   final IndicatorType indicator;
   final Widget _view;
@@ -91,8 +124,7 @@ class ScrollItem<IndicatorType> {
   ScrollItem(this._view, this.indicator, [this._scrollOffset]);
 
   Widget get view {
-    if (_scrollOffset == null)
-      return _view;
+    if (_scrollOffset == null) return _view;
     return _PrimaryScrollController(
       scrollOffset: _scrollOffset,
       scrollListener: (scrollOffset) {
@@ -103,18 +135,6 @@ class ScrollItem<IndicatorType> {
   }
 }
 
-class ScrollItems<IndicatorType> {
-  final List<ScrollItem<IndicatorType>> _items;
-
-  ScrollItems(this._items);
-
-  int get length => _items.length;
-
-  List<Widget> get views => _items.map((item) => item.view).toList();
-
-  List<IndicatorType> get indicators => _items.map((item) => item.indicator).toList();
-}
-
 class PageItem extends ScrollItem<BottomNavigationBarItem> {
   PageItem(Widget view, BottomNavigationBarItem indicator, [double scrollOffset])
       : super(view, indicator, scrollOffset);
@@ -123,4 +143,16 @@ class PageItem extends ScrollItem<BottomNavigationBarItem> {
 class WidgetItem extends ScrollItem<Widget> {
   WidgetItem(Widget view, Widget indicator, [double scrollOffset])
       : super(view, indicator, scrollOffset);
+}
+
+class ScrollItems<IndicatorType> {
+  final int length;
+  final List<IndicatorType> indicators;
+  final List<Widget> views;
+
+  ScrollItems(
+    List<ScrollItem<IndicatorType>> items,
+  )   : length = items.length,
+        indicators = items.map((item) => item.indicator).toList(),
+        views = items.map((item) => item.view).toList();
 }

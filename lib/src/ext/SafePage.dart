@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-@deprecated
 class SafePage extends StatelessWidget {
   final Widget child;
 
   SafePage({Key key, @required this.child}) : super(key: key);
 
-  SafePage.children({Key key,
+  SafePage.children({
+    Key key,
     @required List<Widget> children,
-  }) : this(key: key,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: children,
-    ),
-  );
+  }) : this(
+          key: key,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: children,
+          ),
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,9 @@ class SafePage extends StatelessWidget {
         return SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(
-                minHeight: boxContraints.maxHeight,
-                minWidth: boxContraints.minWidth,
-                maxWidth: boxContraints.maxWidth
+              minHeight: boxContraints.maxHeight,
+              minWidth: boxContraints.minWidth,
+              maxWidth: boxContraints.maxWidth,
             ),
             child: child,
           ),
@@ -50,8 +51,7 @@ class EndSafePage extends StatelessWidget {
             constraints: BoxConstraints(
                 minHeight: boxContraints.maxHeight,
                 minWidth: boxContraints.minWidth,
-                maxWidth: boxContraints.maxWidth
-            ),
+                maxWidth: boxContraints.maxWidth),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: children,
@@ -63,13 +63,14 @@ class EndSafePage extends StatelessWidget {
   }
 }
 
-
 class SliverEndSafePage extends StatelessWidget {
   final List<Widget> slivers;
   final List<Widget> children;
 
-  const SliverEndSafePage({Key key,
-    @required this.slivers, @required this.children,
+  const SliverEndSafePage({
+    Key key,
+    @required this.slivers,
+    @required this.children,
   }) : super(key: key);
 
   @override
@@ -87,13 +88,3 @@ class SliverEndSafePage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

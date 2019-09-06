@@ -1,4 +1,5 @@
 import 'package:easy_widget/easy_widget.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SliverContainer extends StatelessWidget {
@@ -52,8 +53,151 @@ class SliverContainer extends StatelessWidget {
   }
 }
 
-class SliverLayout extends SliverContainer {
-  SliverLayout.delegate({
+class ScrollLayout extends ScrollView {
+  final EdgeInsets padding;
+  final int childCount;
+  final Widget separator;
+  final IndexedWidgetBuilder builder;
+
+  ScrollLayout._({
+    Key key,
+    Axis scrollDirection: Axis.vertical,
+    bool reverse: false,
+    ScrollController controller,
+    bool primary,
+    ScrollPhysics physics,
+    bool shrinkWrap: false,
+    Key center,
+    double anchor = 0.0,
+    double cacheExtent,
+    this.padding,
+    this.childCount,
+    this.separator,
+    @required this.builder,
+    int semanticChildCount,
+    DragStartBehavior dragStartBehavior = DragStartBehavior.start,
+  })  : assert(builder != null),
+        super(
+          key: key,
+          scrollDirection: scrollDirection,
+          reverse: reverse,
+          controller: controller,
+          primary: primary,
+          physics: physics,
+          shrinkWrap: shrinkWrap,
+          center: center,
+          anchor: anchor,
+          cacheExtent: cacheExtent,
+          semanticChildCount: semanticChildCount,
+          dragStartBehavior: dragStartBehavior,
+        );
+
+  ScrollLayout.vertical({
+    Key key,
+    bool reverse: false,
+    ScrollController controller,
+    bool primary,
+    ScrollPhysics physics,
+    bool shrinkWrap: false,
+    Key center,
+    double anchor = 0.0,
+    double cacheExtent,
+    int semanticChildCount,
+    DragStartBehavior dragStartBehavior: DragStartBehavior.start,
+    EdgeInsets padding,
+    int childCount,
+    Widget separator,
+    @required IndexedWidgetBuilder builder,
+  }) : this._(
+          key: key,
+          scrollDirection: Axis.vertical,
+          reverse: reverse,
+          controller: controller,
+          primary: primary,
+          physics: physics,
+          shrinkWrap: shrinkWrap,
+          center: center,
+          anchor: anchor,
+          cacheExtent: cacheExtent,
+          semanticChildCount: semanticChildCount,
+          dragStartBehavior: dragStartBehavior,
+          padding: padding,
+          childCount: childCount,
+          separator: separator,
+          builder: builder,
+        );
+
+  ScrollLayout.horizontal({
+    Key key,
+    bool reverse: false,
+    ScrollController controller,
+    bool primary,
+    ScrollPhysics physics,
+    bool shrinkWrap: false,
+    Key center,
+    double anchor = 0.0,
+    double cacheExtent,
+    int semanticChildCount,
+    DragStartBehavior dragStartBehavior: DragStartBehavior.start,
+    EdgeInsets padding,
+    int childCount,
+    Widget separator,
+    @required IndexedWidgetBuilder builder,
+  }) : this._(
+          key: key,
+          scrollDirection: Axis.horizontal,
+          reverse: reverse,
+          controller: controller,
+          primary: primary,
+          physics: physics,
+          shrinkWrap: shrinkWrap,
+          center: center,
+          anchor: anchor,
+          cacheExtent: cacheExtent,
+          semanticChildCount: semanticChildCount,
+          dragStartBehavior: dragStartBehavior,
+          padding: padding,
+          childCount: childCount,
+          separator: separator,
+          builder: builder,
+        );
+
+  @override
+  List<Widget> buildSlivers(BuildContext context) {
+    final childCount = WidgetBuilderUtility.childCount(this.childCount, separator != null);
+    IndexedWidgetBuilder builder = this.builder;
+    if (padding != null)
+      builder = (context, index) {
+        final sliver = this.builder(context, index);
+        if (index == 0)
+          return SliverPadding(
+            padding: padding.copyWith(bottom: 0),
+            sliver: sliver,
+          );
+        else if (childCount == null ? sliver == null : childCount >= index) {
+          return SliverPadding(
+            padding: padding.copyWith(top: 0),
+            sliver: sliver,
+          );
+        } else {
+          return SliverPadding(
+            padding: padding.copyWith(top: 0, bottom: 0),
+            sliver: sliver,
+          );
+        }
+      };
+    if (separator != null)
+      builder = WidgetBuilderUtility.builderWithSeparator(builder, (_, __) => separator);
+
+    return ListUtility.nullGenerator(
+      (index) => builder(context, index),
+      itemCount: childCount == null ? null : childCount,
+    );
+  }
+}
+
+class SliverListLayout extends SliverContainer {
+  SliverListLayout.delegate({
     EdgeInsets padding,
     @required SliverChildDelegate delegate,
   }) : super._(
@@ -74,28 +218,30 @@ class SliverLayout extends SliverContainer {
 //    ),
 //  );
 
-  SliverLayout({
+  SliverListLayout({
     EdgeInsets padding,
     bool surround: false,
+    IndexedWidgetBuilder separatorBuilder,
     @required int childCount,
     @required IndexedWidgetBuilder builder,
   }) : this.delegate(
-    padding: padding,
+          padding: padding,
           delegate: SliverLayoutDelegate(
+            separatorBuilder: separatorBuilder,
             surround: surround,
             childCount: childCount,
             builder: builder,
           ),
         );
 
-  SliverLayout.childrenBuilder({
+  SliverListLayout.childrenBuilder({
     EdgeInsets padding,
     bool surround: false,
     @required int childCount,
     @required Widget separator,
     @required IndexedWidgetBuilder builder,
   }) : this.delegate(
-    padding: padding,
+          padding: padding,
           delegate: SliverLayoutDelegate.childrenBuilder(
             surround: surround,
             childCount: childCount,
@@ -104,13 +250,13 @@ class SliverLayout extends SliverContainer {
           ),
         );
 
-  SliverLayout.children({
+  SliverListLayout.children({
     EdgeInsets padding,
     bool surround: false,
     Widget separator,
     @required List<Widget> children,
   }) : this.delegate(
-    padding: padding,
+          padding: padding,
           delegate: SliverLayoutDelegate.children(
             surround: surround,
             children: children,

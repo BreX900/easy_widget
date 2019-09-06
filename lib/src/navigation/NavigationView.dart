@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class NavigationView extends StatefulWidget {
+  final NavigationController controller;
   final List<Widget> children;
 
   final ScrollPhysics physics;
@@ -11,6 +12,7 @@ class NavigationView extends StatefulWidget {
 
   const NavigationView({
     Key key,
+    this.controller,
     this.physics: const NeverScrollableScrollPhysics(),
     this.dragStartBehavior: DragStartBehavior.start,
     this.children,
@@ -29,11 +31,23 @@ class _NavigationViewState extends State<NavigationView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final newController = DefaultNavigationController.of(context);
-    assert(newController != null, "Use [DefaultNavigationController]");
+    final newController = widget.controller ?? DefaultNavigationController.of(context);
+    assert(
+        newController != null, "Use [DefaultNavigationController] or pass [NavigationController]");
 
     if (_controller == newController) return;
+    _initController(newController);
+  }
 
+  @override
+  void didUpdateWidget(NavigationView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.controller != oldWidget.controller) {
+      _initController(widget.controller);
+    }
+  }
+
+  void _initController(NavigationController newController) {
     _controller?.removeListener(_controllerListener);
     _controller = newController;
     _controller.addListener(_controllerListener);

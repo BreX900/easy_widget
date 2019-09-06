@@ -1,4 +1,4 @@
-import 'package:easy_widget/src/ext/ListUtility.dart';
+import 'package:easy_widget/src/utility/ListUtility.dart';
 import 'package:flutter/widgets.dart';
 
 class SliverLayoutDelegate extends SliverChildBuilderDelegate {

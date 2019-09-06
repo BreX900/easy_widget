@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class ScaffoldBuild {
-  Widget buildBody(BuildContext context);
   Widget buildAppBar(BuildContext context) => null;
+  Widget buildBody(BuildContext context);
+  Widget buildBottomBar(BuildContext context) => null;
 }
 
 mixin ThemeMixin<WidgetType extends StatefulWidget> on State<WidgetType> {
@@ -25,3 +26,4 @@ mixin ThemeMixin<WidgetType extends StatefulWidget> on State<WidgetType> {
     return null;
   }
 }
+

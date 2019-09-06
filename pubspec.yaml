@@ -23,6 +23,8 @@ dependencies:
 
   rational: any
 
+  font_awesome_flutter: any
+
 
 dev_dependencies:
   flutter_test:
