@@ -1,5 +1,4 @@
 import 'package:easy_widget/src/navigation/DefaultNavigationController.dart';
-import 'package:easy_widget/src/navigation/NavigationView.dart';
 import 'package:flutter/material.dart';
 
 class NavigationBar extends StatefulWidget {

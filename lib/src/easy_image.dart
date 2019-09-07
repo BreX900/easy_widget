@@ -122,6 +122,7 @@ class _EasyImageState extends State<EasyImage> {
         );
         break;
     }
+    throw "Null not Support";
   }
 }
 

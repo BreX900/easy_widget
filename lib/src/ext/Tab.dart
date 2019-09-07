@@ -151,8 +151,8 @@ class ScrollItems<IndicatorType> {
   final List<Widget> views;
 
   ScrollItems(
-    List<ScrollItem<IndicatorType>> items,
+    Map<IndicatorType, Widget> items,
   )   : length = items.length,
-        indicators = items.map((item) => item.indicator).toList(),
-        views = items.map((item) => item.view).toList();
+        indicators = items.keys.toList(),
+        views = items.values.toList();
 }

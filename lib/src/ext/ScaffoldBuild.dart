@@ -7,6 +7,11 @@ abstract class ScaffoldBuild {
   Widget buildBottomBar(BuildContext context) => null;
 }
 
+abstract class SliverBuild {
+  Widget buildAppBar(BuildContext context) => null;
+  List<Widget> buildBody(BuildContext context);
+}
+
 mixin ThemeMixin<WidgetType extends StatefulWidget> on State<WidgetType> {
   ThemeData _theme;
 

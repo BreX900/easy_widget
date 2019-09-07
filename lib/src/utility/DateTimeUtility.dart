@@ -19,7 +19,7 @@ class DateTimeUtility {
               if (minute) dateTime.minute,
               if (second) dateTime.second,
             ].join(":") +
-            (millisecond ? dateTime.millisecond : '');
+            (millisecond ? '.${dateTime.millisecond}' : '');
   }
 
   static TimeOfDay toTimeOfDay(DateTime dateTime) {
@@ -57,3 +57,47 @@ class DateTimeUtility {
         microsecond: trailing);
   }
 }
+
+//class DateTimePrinter {
+//  final bool year, month, day;
+//  final bool hour, minute, second, millisecond;
+//  final String timeSeparator, dateSeparator, separator;
+//
+//  DateTimePrinter({
+//    this.dateSeparator: '-', this.separator: ' ', this.timeSeparator: ':',
+//    this.year: true, this.month: true, this.day: true,
+//    this.hour: true, this.minute: true, this.second: true, this.millisecond: false,
+//  });
+//
+//  DateTimePrinter.time()
+//
+//  String _threeDigits(int n) {
+//    if (n >= 100) return "${n}";
+//    if (n >= 10) return "0${n}";
+//    return "00${n}";
+//  }
+//
+//  String _twoDigits(int n) {
+//    if (n >= 10) return "${n}";
+//    return "0${n}";
+//  }
+//
+//  String toDate(DateTime dateTime) {
+//    return [
+//      if (year) dateTime.year,
+//      if (month) dateTime.month,
+//      if (day) dateTime.day,
+//    ].join(separator);
+//  }
+//
+//  String toTime(DateTime dateTime) {
+//    return dateTime == null
+//        ? ""
+//        : [
+//      if (hour) dateTime.hour,
+//      if (minute) dateTime.minute,
+//      if (second) dateTime.second,
+//    ].join(":") +
+//        (millisecond ? '.${dateTime.millisecond}' : '');
+//  }
+//}
