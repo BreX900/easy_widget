@@ -29,7 +29,7 @@ class MagicPrinter extends LogPrinter {
 
   String stringifyMessage(dynamic message) {
     if (message is Map || message is Iterable) {
-      final encoder = JsonEncodPetaer.withIndent(null);
+      final encoder = JsonEncoder.withIndent(null);
       return encoder.convert(message);
     } else {
       return message.toString();
