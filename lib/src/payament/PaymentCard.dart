@@ -1,15 +1,19 @@
 import 'package:easy_widget/easy_widget.dart';
 import 'package:flutter/material.dart';
 
-
 enum BrandOfPaymentCard {
-  americanExpress, dinersClub, discover, JCB, mastercard,
-  unionPay, /// TODO: AGGIUNGERE IMMAGINE
+  americanExpress,
+  dinersClub,
+  discover,
+  JCB,
+  mastercard,
+  unionPay,
+
+  /// TODO: AGGIUNGERE IMMAGINE
   visa,
 }
 
-
-const STRING_OF_PAYMENT_CARD = <BrandOfPaymentCard, String> {
+const STRING_OF_PAYMENT_CARD = <BrandOfPaymentCard, String>{
   BrandOfPaymentCard.americanExpress: "American Express",
   BrandOfPaymentCard.dinersClub: "Diners Club",
   BrandOfPaymentCard.discover: "Discover",
@@ -17,16 +21,16 @@ const STRING_OF_PAYMENT_CARD = <BrandOfPaymentCard, String> {
   BrandOfPaymentCard.mastercard: "Mastercard",
   BrandOfPaymentCard.unionPay: "UnionPay",
   BrandOfPaymentCard.visa: "Visa",
-}, PAYMENT_CARD_OF_STRING = <String, BrandOfPaymentCard> {
+},
+    PAYMENT_CARD_OF_STRING = <String, BrandOfPaymentCard>{
   "American Express": BrandOfPaymentCard.americanExpress,
   "Diners Club": BrandOfPaymentCard.dinersClub,
   "Discover": BrandOfPaymentCard.discover,
   "JCB": BrandOfPaymentCard.JCB,
-  "Mastercard": BrandOfPaymentCard.mastercard,
+  "MasterCard": BrandOfPaymentCard.mastercard,
   "UnionPay": BrandOfPaymentCard.unionPay,
   "Visa": BrandOfPaymentCard.visa,
 };
-
 
 class PaymentCard extends StatelessWidget {
   static const PAINT_SIZE = 64.0;
@@ -37,8 +41,11 @@ class PaymentCard extends StatelessWidget {
   final String last4;
   final bool isDense;
 
-  PaymentCard({Key key,
-    this.assetFolder: ASSET_FOLDER, @required this.type, @required this.last4,
+  PaymentCard({
+    Key key,
+    this.assetFolder: ASSET_FOLDER,
+    @required this.type,
+    @required this.last4,
     this.isDense: false,
   }) : super(key: key);
 
@@ -57,23 +64,34 @@ class PaymentCard extends StatelessWidget {
     final theme = Theme.of(context);
     final tt = theme.textTheme;
 
-    final assetFile = AssetHandler().getFolder(assetFolder).getFileByEnum(type);
+    final assetFile =
+        type == null ? null : AssetHandler().getFolder(assetFolder).getFileByEnum(type);
 
     return Row(
       children: <Widget>[
-        assetFile == null ? const Icon(Icons.credit_card, size: PAINT_SIZE,) : Image.asset(
-          assetFile.path,
-          width: PAINT_SIZE, height: PAINT_SIZE,
-          fit: BoxFit.contain,
+        assetFile == null
+            ? const Icon(
+                Icons.credit_card,
+                size: PAINT_SIZE,
+              )
+            : Image.asset(
+                assetFile.path,
+                width: PAINT_SIZE,
+                height: PAINT_SIZE,
+                fit: BoxFit.contain,
+              ),
+        SizedBox(
+          width: 16.0,
         ),
-
-        SizedBox(width: 16.0,),
-        Text(type == null ? "Unknow" : STRING_OF_PAYMENT_CARD[type], style: tt.subtitle,),
-        SizedBox(width: 8.0,),
+        Text(
+          type == null ? "Unknow" : STRING_OF_PAYMENT_CARD[type],
+          style: tt.subtitle,
+        ),
+        SizedBox(
+          width: 8.0,
+        ),
         Text(isDense == true ? '... $last4' : 'XXXX XXXX XXXX $last4'),
       ],
     );
   }
 }
-
-

@@ -25,6 +25,9 @@ dependencies:
 
   font_awesome_flutter: any
 
+  logger: any
+  intl: any
+
 
 dev_dependencies:
   flutter_test:

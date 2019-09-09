@@ -47,7 +47,7 @@ class Layout extends StatelessWidget {
     EdgeInsets padding,
     ScrollPocket scrollPocket,
     Widget separator,
-    @required List<Widget> children,
+    List<Widget> children: const <Widget>[],
   }) : this._(
           direction: Axis.vertical,
           mainAxisAlignment: mainAxisAlignment,
@@ -74,7 +74,7 @@ class Layout extends StatelessWidget {
     EdgeInsets padding,
     ScrollPocket scrollPocket,
     Widget separator,
-    @required List<Widget> children,
+    List<Widget> children: const <Widget>[],
   }) : this._(
           direction: Axis.horizontal,
           mainAxisAlignment: mainAxisAlignment,
@@ -92,7 +92,8 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = this.children;/*expanded
+    List<Widget> children = this.children;
+    /*expanded
         ? this.children.map((child) {
             return Expanded(child: child);
           }).toList()
@@ -120,15 +121,9 @@ class Layout extends StatelessWidget {
         dragStartBehavior: scrollPocket.dragStartBehavior,
         child: child,
       );
-    else if (padding != null)
-      child = Padding(
-        padding: padding,
-        child: child
-      );
+    else if (padding != null) child = Padding(padding: padding, child: child);
     if (expanded) {
-      child = Expanded(
-        child: child
-      );
+      child = Expanded(child: child);
     }
 
     return child;

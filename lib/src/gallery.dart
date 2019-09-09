@@ -5,13 +5,17 @@ import 'package:photo_view/photo_view_gallery.dart';
 
 const String DEFAULT_HERO_TAG = "Simple";
 
-
 class GalleryScreen extends StatelessWidget {
   final int itemCount;
   final ImgBuilder imgBuilder;
   final int initialPage;
 
-  GalleryScreen({Key key, @required this.itemCount, @required this.imgBuilder, this.initialPage: 0,}) : super(key: key);
+  GalleryScreen({
+    Key key,
+    @required this.itemCount,
+    @required this.imgBuilder,
+    this.initialPage: 0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,10 @@ class GalleryScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50.0),
                   ),
                   padding: const EdgeInsets.all(5.0),
-                  child: Icon(Icons.close, color: Colors.white,),
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -46,7 +53,8 @@ class GalleryPage extends StatefulWidget {
   final ImgBuilder imgBuilder;
   final int initialPage;
 
-  GalleryPage({Key key, @required this.imgBuilder, this.initialPage: 0, @required this.itemCount}) : super(key: key);
+  GalleryPage({Key key, @required this.imgBuilder, this.initialPage: 0, @required this.itemCount})
+      : super(key: key);
 
   @override
   _GalleryPageState createState() => _GalleryPageState();
@@ -75,12 +83,13 @@ class _GalleryPageState extends State<GalleryPage> {
           pageController: _pageController,
           itemCount: widget.itemCount,
           builder: (context, index) {
-            if (index+1 < widget.itemCount)
-              precacheImage(widget.imgBuilder(index+1), context);
+            if (index + 1 < widget.itemCount) precacheImage(widget.imgBuilder(index + 1), context);
 
             return PhotoViewGalleryPageOptions(
               imageProvider: widget.imgBuilder(index),
-              heroTag: DEFAULT_HERO_TAG + index.toString(),
+              heroAttributes: PhotoViewHeroAttributes(
+                tag: DEFAULT_HERO_TAG + index.toString(),
+              ),
               minScale: PhotoViewComputedScale.contained,
               maxScale: 4.0,
             );
@@ -93,12 +102,22 @@ class _GalleryPageState extends State<GalleryPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
-                onPressed: () => _pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.linear),
-                icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 30,),
+                onPressed: () => _pageController.previousPage(
+                    duration: Duration(milliseconds: 300), curve: Curves.linear),
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 30,
+                ),
               ),
               IconButton(
-                onPressed: () => _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.linear),
-                icon: Icon(Icons.arrow_forward_ios, color: Colors.white, size: 30,),
+                onPressed: () => _pageController.nextPage(
+                    duration: Duration(milliseconds: 300), curve: Curves.linear),
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  size: 30,
+                ),
               ),
             ],
           ),

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
 class EasyImage extends StatefulWidget {
   final ImageProvider image;
 
@@ -20,7 +18,9 @@ class EasyImage extends StatefulWidget {
   final String semanticLabel;
   final bool excludeFromSemantics;
 
-  const EasyImage(this.image, {Key key,
+  const EasyImage(
+    this.image, {
+    Key key,
     this.semanticLabel,
     this.excludeFromSemantics = false,
     this.width,
@@ -36,7 +36,8 @@ class EasyImage extends StatefulWidget {
     this.filterQuality = FilterQuality.low,
   }) : super(key: key);
 
-  EasyImage.network(String img, {
+  EasyImage.network(
+    String img, {
     this.semanticLabel,
     this.excludeFromSemantics = false,
     this.width,
@@ -110,7 +111,8 @@ class _EasyImageState extends State<EasyImage> {
         );
         break;
       case ImageStatus.LOADING:
-        return Center(child: CircularProgressIndicator(),
+        return Center(
+          child: CircularProgressIndicator(),
         );
         break;
       case ImageStatus.ERROR:
@@ -126,7 +128,8 @@ class _EasyImageState extends State<EasyImage> {
   }
 }
 
-
 enum ImageStatus {
-  LOADING, COMPLETE, ERROR,
+  LOADING,
+  COMPLETE,
+  ERROR,
 }
