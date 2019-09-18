@@ -25,7 +25,7 @@ class NavigationBar extends StatefulWidget {
     Key key,
     @required this.items,
     this.elevation: 8.0,
-    this.type,
+    this.type: BottomNavigationBarType.fixed,
     this.backgroundColor,
     this.iconSize: 24.0,
     this.selectedItemColor,

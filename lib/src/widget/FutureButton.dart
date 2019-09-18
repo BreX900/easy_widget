@@ -1,3 +1,4 @@
+import 'package:easy_widget/src/ext/Button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +10,16 @@ class FutureCallBack extends StatefulWidget {
 
   const FutureCallBack({Key key, this.onPressed, this.builder}) : super(key: key);
 
-  FutureCallBack.raisedButton({
+  FutureCallBack.button({
+    ButtonDesign design: ButtonDesign.raised,
+    Color textColor,
     Color color,
     this.onPressed,
     Widget child,
   }) : this.builder = ((_, onPressed) {
-          return RaisedButton(
+          return Button.basic(
+            buttonDesign: design,
+            textColor: textColor,
             onPressed: onPressed,
             color: color,
             child: child,

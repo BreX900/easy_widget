@@ -10,9 +10,11 @@ export 'src/cart/StepperButton.dart';
 
 export 'src/decorator/ConnectLineTabIndicator.dart';
 
+export 'src/ext/pockets.dart';
 export 'src/ext/Alert.dart';
 export 'src/ext/Button.dart';
 export 'src/ext/DropDownField.dart';
+export 'src/ext/InkStack.dart';
 export 'src/ext/Layout.dart';
 export 'src/ext/ListViewSeparated.dart';
 export 'src/ext/SafePage.dart';
@@ -41,6 +43,7 @@ export 'src/utility/ListUtility.dart';
 
 export 'src/widget/FutureButton.dart';
 export 'src/widget/Papyrus.dart';
+export 'src/widget/AspectRatioSizer.dart';
 
 export 'src/easy_icon_icons.dart';
 export 'src/easy_image.dart';

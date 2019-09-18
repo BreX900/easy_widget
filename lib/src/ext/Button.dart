@@ -33,7 +33,7 @@ class Button extends StatelessWidget {
     this.splashColor,
     this.padding,
     this.shape,
-    this.clipBehavior,
+    this.clipBehavior: Clip.none,
     this.focusNode,
     this.onPressed,
     this.child,
@@ -52,7 +52,7 @@ class Button extends StatelessWidget {
     Color highlightColor,
     Color splashColor,
     ShapeBorder shape,
-    Clip clipBehavior,
+    Clip clipBehavior: Clip.none,
     FocusNode focusNode,
     VoidCallback onPressed,
     Widget child,
@@ -75,7 +75,6 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("FOCUSNODE ............... $focusNode");
     if (buttonDesign == ButtonDesign.raised) {
       return RaisedButton(
         onPressed: onPressed,

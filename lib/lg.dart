@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
@@ -18,7 +19,11 @@ class MagicPrinter extends LogPrinter {
 
   final DateFormat formatter;
 
-  MagicPrinter({this.formatter});
+  MagicPrinter({@required this.formatter}) : assert(formatter != null);
+
+  MagicPrinter.mode({bool debugMode: true})
+      : assert(debugMode != null),
+        this.formatter = debugMode ? DateFormat('mm:ss.SS') : DateFormat('yyyy/MM/dd mm:ss.SS');
 
   @override
   void log(LogEvent event) {

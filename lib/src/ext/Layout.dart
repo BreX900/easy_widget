@@ -1,4 +1,5 @@
 import 'package:easy_widget/easy_widget.dart';
+import 'package:easy_widget/src/ext/pockets.dart';
 import 'package:easy_widget/src/utility/ListUtility.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
@@ -12,16 +13,16 @@ class Layout extends StatelessWidget {
   final VerticalDirection verticalDirection;
   final TextBaseline textBaseline;
 
-  final bool expanded;
-  final EdgeInsets padding;
+  final FlexiblePocket flexible;
+  final EdgeInsets padding, margin;
+  final Decoration background, foreground;
   final ScrollPocket scrollPocket;
 
   final Widget separator;
   final List<Widget> children;
 
-  Layout._({
+  Layout.vertical({
     Key key,
-    this.direction: Axis.vertical,
     this.mainAxisAlignment: MainAxisAlignment.start,
     this.mainAxisSize: MainAxisSize.max,
     this.crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,64 +31,36 @@ class Layout extends StatelessWidget {
     this.textBaseline,
     this.separator,
     this.padding,
+    this.background,
+    this.foreground,
+    this.margin,
     this.scrollPocket,
-    this.expanded: false,
-    @required this.children,
-  })  : assert(children != null),
-        super(key: key);
-
-  Layout.vertical({
-    MainAxisAlignment mainAxisAlignment: MainAxisAlignment.start,
-    MainAxisSize mainAxisSize: MainAxisSize.max,
-    CrossAxisAlignment crossAxisAlignment: CrossAxisAlignment.center,
-    TextDirection textDirection,
-    VerticalDirection verticalDirection: VerticalDirection.down,
-    TextBaseline textBaseline,
-    bool expanded: false,
-    EdgeInsets padding,
-    ScrollPocket scrollPocket,
-    Widget separator,
-    List<Widget> children: const <Widget>[],
-  }) : this._(
-          direction: Axis.vertical,
-          mainAxisAlignment: mainAxisAlignment,
-          mainAxisSize: mainAxisSize,
-          crossAxisAlignment: crossAxisAlignment,
-          textDirection: textDirection,
-          verticalDirection: verticalDirection,
-          textBaseline: textBaseline,
-          expanded: expanded,
-          padding: padding,
-          scrollPocket: scrollPocket,
-          separator: separator,
-          children: children,
+    this.flexible,
+    this.children,
+  })  : this.direction = Axis.vertical,
+        super(
+          key: key,
         );
 
   Layout.horizontal({
-    MainAxisAlignment mainAxisAlignment: MainAxisAlignment.start,
-    MainAxisSize mainAxisSize: MainAxisSize.max,
-    CrossAxisAlignment crossAxisAlignment: CrossAxisAlignment.center,
-    TextDirection textDirection,
-    VerticalDirection verticalDirection: VerticalDirection.down,
-    TextBaseline textBaseline,
-    bool expanded: false,
-    EdgeInsets padding,
-    ScrollPocket scrollPocket,
-    Widget separator,
-    List<Widget> children: const <Widget>[],
-  }) : this._(
-          direction: Axis.horizontal,
-          mainAxisAlignment: mainAxisAlignment,
-          mainAxisSize: mainAxisSize,
-          crossAxisAlignment: crossAxisAlignment,
-          textDirection: textDirection,
-          verticalDirection: verticalDirection,
-          textBaseline: textBaseline,
-          expanded: expanded,
-          padding: padding,
-          scrollPocket: scrollPocket,
-          separator: separator,
-          children: children,
+    Key key,
+    this.mainAxisAlignment: MainAxisAlignment.start,
+    this.mainAxisSize: MainAxisSize.max,
+    this.crossAxisAlignment: CrossAxisAlignment.center,
+    this.textDirection,
+    this.verticalDirection: VerticalDirection.down,
+    this.textBaseline,
+    this.separator,
+    this.padding,
+    this.background,
+    this.foreground,
+    this.margin,
+    this.scrollPocket,
+    this.flexible,
+    this.children,
+  })  : this.direction = Axis.horizontal,
+        super(
+          key: key,
         );
 
   @override
@@ -122,28 +95,14 @@ class Layout extends StatelessWidget {
         child: child,
       );
     else if (padding != null) child = Padding(padding: padding, child: child);
-    if (expanded) {
-      child = Expanded(child: child);
-    }
+
+    child = DecoratedBoxPocket.toWidget(child, background, foreground);
+
+    if (margin != null) child = Padding(padding: margin, child: child);
+    if (flexible != null) child = flexible.toWidget(child);
 
     return child;
   }
-}
-
-class ScrollPocket {
-  final bool reverse;
-  final bool primary;
-  final ScrollPhysics physics;
-  final ScrollController controller;
-  final DragStartBehavior dragStartBehavior;
-
-  const ScrollPocket({
-    this.reverse: false,
-    this.primary,
-    this.physics,
-    this.controller,
-    this.dragStartBehavior: DragStartBehavior.start,
-  });
 }
 
 class DoubleWidget extends StatelessWidget {

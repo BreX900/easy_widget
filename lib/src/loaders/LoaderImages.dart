@@ -110,7 +110,7 @@ class AssetFolder extends ListBase<AssetFile> {
   @override
   int get hashCode => hash(path);
   @override
-  bool operator ==(other) {
+  bool operator ==(dynamic other) {
     return other is AssetFolder && path == other.path;
   }
 
