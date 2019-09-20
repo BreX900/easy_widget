@@ -2,35 +2,26 @@ import 'package:easy_widget/easy_widget.dart';
 import 'package:flutter/material.dart';
 
 enum BrandOfPaymentCard {
-  americanExpress,
-  dinersClub,
+  amex,
+  diners,
   discover,
-  JCB,
+  jcb,
   mastercard,
-  unionPay,
+  unionpay,
 
   /// TODO: AGGIUNGERE IMMAGINE
   visa,
 }
 
-const STRING_OF_PAYMENT_CARD = <BrandOfPaymentCard, String>{
-  BrandOfPaymentCard.americanExpress: "American Express",
-  BrandOfPaymentCard.dinersClub: "Diners Club",
-  BrandOfPaymentCard.discover: "Discover",
-  BrandOfPaymentCard.JCB: "JCB",
-  BrandOfPaymentCard.mastercard: "Mastercard",
-  BrandOfPaymentCard.unionPay: "UnionPay",
-  BrandOfPaymentCard.visa: "Visa",
-},
-    PAYMENT_CARD_OF_STRING = <String, BrandOfPaymentCard>{
-  "American Express": BrandOfPaymentCard.americanExpress,
-  "Diners Club": BrandOfPaymentCard.dinersClub,
-  "Discover": BrandOfPaymentCard.discover,
-  "JCB": BrandOfPaymentCard.JCB,
-  "MasterCard": BrandOfPaymentCard.mastercard,
-  "UnionPay": BrandOfPaymentCard.unionPay,
-  "Visa": BrandOfPaymentCard.visa,
-};
+//    PAYMENT_CARD_OF_STRING = <String, BrandOfPaymentCard>{
+//  "American Express": BrandOfPaymentCard.americanExpress,
+//  "Diners Club": BrandOfPaymentCard.dinersClub,
+//  "Discover": BrandOfPaymentCard.discover,
+//  "JCB": BrandOfPaymentCard.JCB,
+//  "MasterCard": BrandOfPaymentCard.mastercard,
+//  "UnionPay": BrandOfPaymentCard.unionpay,
+//  "Visa": BrandOfPaymentCard.visa,
+//};
 
 class PaymentCard extends StatelessWidget {
   static const PAINT_SIZE = 64.0;
@@ -53,11 +44,21 @@ class PaymentCard extends StatelessWidget {
     return '$path/$title.png';
   }
 
-  static Iterable<String> getPathImages(String path) {
-    return PAYMENT_CARD_OF_STRING.keys.map((title) {
-      return getPathImage(path, title);
-    });
-  }
+  static const getTitlePaymentCard = <BrandOfPaymentCard, String>{
+    BrandOfPaymentCard.amex: "American Express",
+    BrandOfPaymentCard.diners: "Diners Club",
+    BrandOfPaymentCard.discover: "Discover",
+    BrandOfPaymentCard.jcb: "JCB",
+    BrandOfPaymentCard.mastercard: "Mastercard",
+    BrandOfPaymentCard.unionpay: "UnionPay",
+    BrandOfPaymentCard.visa: "Visa",
+  };
+
+//  static Iterable<String> getPathImages(String path) {
+//    return PAYMENT_CARD_OF_STRING.keys.map((title) {
+//      return getPathImage(path, title);
+//    });
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,7 @@ class PaymentCard extends StatelessWidget {
           width: 16.0,
         ),
         Text(
-          type == null ? "Unknow" : STRING_OF_PAYMENT_CARD[type],
+          type == null ? "Unknow" : getTitlePaymentCard[type],
           style: tt.subtitle,
         ),
         SizedBox(
